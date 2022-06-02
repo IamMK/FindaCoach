@@ -1,13 +1,25 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link>
-    <router-link to="requests">Request</router-link>
-    <router-link to="register">Register</router-link>
-  </nav>
+  <the-header></the-header>
   <router-view />
 </template>
 
+<script lang="ts">
+import TheHeader from "./components/layout/TheHeader.vue";
+
+export default {
+  components: {
+    TheHeader,
+  },
+};
+</script>
+
 <style lang="scss">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -15,17 +27,8 @@
   text-align: center;
   color: #2c3e50;
 }
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+a {
+  color: inherit;
+  text-decoration: none;
 }
 </style>
