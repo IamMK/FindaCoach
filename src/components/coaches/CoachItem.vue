@@ -1,9 +1,19 @@
 <template>
-  <h3>{{ fullName }}</h3>
-  <h4>${{ rate }}/hour</h4>
+  <li>
+    <h3>{{ fullName }}</h3>
+    <h4>${{ rate }}/hour</h4>
+  </li>
+  <div>
+    <base-badge
+      v-for="area in areas"
+      :key="area"
+      :type="area"
+      :title="area"
+    ></base-badge>
+  </div>
   <section class="actions">
-    <router-link :to="coachContactLink"> Contact </router-link>
-    <router-link :to="coachDetailLink">View Details</router-link>
+    <base-button link :to="coachContactLink"> Contact </base-button>
+    <base-button link :to="coachDetailLink">View Details</base-button>
   </section>
 </template>
 
