@@ -40,3 +40,16 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
+</style>
