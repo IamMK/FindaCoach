@@ -1,14 +1,16 @@
 <template>
-  <button class="button" v-if="!link" :class="'button--' + mode">
+  <button class="button" v-if="!link" :class="modeClass">
     <slot></slot>
   </button>
-  <router-link class="button" v-else :to="to" :class="'button--' + mode"
+  <router-link class="button" v-else :to="to" :class="modeClass"
     ><slot></slot
   ></router-link>
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from "@vue/runtime-core";
+
+export default defineComponent({
   props: {
     mode: {
       type: String,
@@ -26,12 +28,16 @@ export default {
       default: "/",
     },
   },
-};
+  computed: {
+    modeClass(): string {
+      return this.mode != null ? "button--" + this.mode : "";
+    },
+  },
+});
 </script>
 
-<style lang="scss" scoped>
-button,
-a {
+<style lang="scss">
+.button {
   text-decoration: none;
   padding: 0.75rem 1.5rem;
   font: inherit;
@@ -42,26 +48,29 @@ a {
   border-radius: 30px;
   margin-right: 0.5rem;
   display: inline-block;
-}
-
-a:hover,
-a:active,
-button:hover,
-button:active {
-  background-color: #270041;
-  border-color: #270041;
-}
-
-.flat {
-  background-color: transparent;
-  color: #3a0061;
-  border: none;
-}
-
-.outline {
-  background-color: transparent;
-  border-color: #270041;
-  color: #270041;
+  &:hover,
+  &:active {
+    background-color: #270041;
+    border-color: #270041;
+  }
+  &--flat {
+    background-color: transparent;
+    color: #3a0061;
+    border: none;
+    &:hover,
+    &:active {
+      background-color: #edd2ff;
+    }
+  }
+  &--outline {
+    background-color: transparent;
+    border-color: #270041;
+    color: #270041;
+    &:hover,
+    &:active {
+      background-color: #edd2ff;
+    }
+  }
 }
 
 .flat:hover,

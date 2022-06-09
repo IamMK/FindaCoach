@@ -3,10 +3,10 @@
 
   <section class="controls">
     <base-card>
-      <base-button>Refresh</base-button>
+      <base-button mode="flat">Refresh</base-button>
       <base-button link to="/register">Register as a Coach</base-button>
       <h2>Coaches</h2>
-      <ul v-if="coaches.coachesNotEmpty">
+      <ul class="coach__container" v-if="coaches.coachesNotEmpty">
         <coach-item
           v-for="coach in coaches.coaches"
           :key="coach.id"
@@ -41,8 +41,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-ul {
+<style lang="scss">
+.coach__container {
   list-style: none;
   margin: 0;
   padding: 0;
