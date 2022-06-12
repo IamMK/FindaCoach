@@ -35,10 +35,10 @@ export default defineComponent({
       return this.firstName + " " + this.lastName;
     },
     coachContactLink(): string {
-      return this.$route.path + "/coaches/" + this.id + "/contact";
+      return this.$route.path + "/" + this.id + "/contact";
     },
     coachDetailLink(): string {
-      return this.$route.path + "/coaches/" + this.id;
+      return this.$route.path + "/" + this.id;
     },
   },
 });

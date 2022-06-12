@@ -12,7 +12,7 @@ import NotFound from "@/pages/NotFound.vue";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    redirect: "coaches",
+    redirect: "/coaches",
   },
   {
     path: "/coaches",
@@ -21,6 +21,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/coaches/:id",
+    props: true,
     children: [
       {
         path: "contact",

@@ -65,15 +65,4 @@
     }
   }
 }
-
-// h1 a {
-//   color: white;
-//   margin: 0;
-// }
-
-// h1 a:hover,
-// h1 a:active,
-// h1 a.router-link-active {
-//   border-color: transparent;
-// }
 </style>
