@@ -28,7 +28,7 @@ export default defineComponent({
     firstName: String,
     lastName: String,
     rate: Number,
-    areas: String,
+    areas: Array,
   },
   computed: {
     fullName(): string {

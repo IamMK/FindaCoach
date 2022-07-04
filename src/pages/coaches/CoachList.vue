@@ -1,5 +1,52 @@
+<script setup lang="ts">
+export type coachesFilter = {
+  frontend: boolean;
+  backend: boolean;
+  career: boolean;
+};
+
+import { useCoachesStore } from "@/store";
+
+import CoachItem from "@/components/coaches/CoachItem.vue";
+import BaseButton from "@/components/ui/BaseButton.vue";
+import coachFilter from "@/components/coaches/CoachFilter.vue";
+import { computed } from "@vue/reactivity";
+
+const coaches = useCoachesStore();
+
+let activeFilters = { frontend: true, backend: true, career: true };
+
+const setFilters = (updatedFilters: coachesFilter) => {
+  console.log("Updated: ");
+  console.log(updatedFilters);
+
+  console.log("Old: ");
+  console.log(activeFilters);
+
+  activeFilters = updatedFilters;
+  console.log("New: ");
+  console.log(activeFilters);
+};
+
+const filteredCoaches = computed(() => {
+  const coachesTemp = coaches.coaches;
+
+  return coachesTemp.filter((coach) => {
+    if (activeFilters.frontend && coach.areas.includes("frontend")) {
+      return true;
+    }
+    if (activeFilters.backend && coach.areas.includes("backend")) {
+      return true;
+    }
+    if (activeFilters.career && coach.areas.includes("career")) {
+      return true;
+    }
+  });
+});
+</script>
+
 <template>
-  <section>FILTER</section>
+  <section><coach-filter @change-filter="setFilters" /></section>
 
   <section class="controls">
     <base-card>
@@ -8,7 +55,7 @@
       <h2>Coaches</h2>
       <ul class="coach__container" v-if="coaches.coachesNotEmpty">
         <coach-item
-          v-for="coach in coaches.coaches"
+          v-for="coach in filteredCoaches"
           :key="coach.id"
           :id="coach.id"
           :first-name="coach.firstName"
@@ -21,25 +68,6 @@
     </base-card>
   </section>
 </template>
-
-<script lang="ts">
-import { useCoachesStore } from "@/store";
-
-import CoachItem from "@/components/coaches/CoachItem.vue";
-import BaseButton from "@/components/ui/BaseButton.vue";
-
-export default {
-  components: {
-    CoachItem,
-    BaseButton,
-  },
-  setup() {
-    const coaches = useCoachesStore();
-
-    return { coaches };
-  },
-};
-</script>
 
 <style lang="scss">
 .coach__container {
