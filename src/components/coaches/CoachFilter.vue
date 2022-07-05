@@ -1,35 +1,15 @@
 <script setup lang="ts">
-import { defineEmits } from "vue";
+import { defineEmits, reactive } from "vue";
 
-let filters = {
+let filters = reactive({
   frontend: true,
   backend: true,
   carrer: true,
-};
+});
 
 const emit = defineEmits(["change-filter"]);
 
-// const filterValue = {
-//   frontend: true,
-//   backend: true,
-//   career: true,
-// };
-
-// const setFilter = (filter: string) => {
-//   console.log(filter);
-// };
-
 const setFilter = () => {
-  // console.log(filters);
-
-  // console.log(event);
-  // const input = event.target ? event.target.id : "Dupa";
-  // const isActive = event.target ? event.target.checked : "dupa";
-  // const updatedFilters = {
-  //   ...filters,
-  //   [input]: isActive,
-  // };
-  // return updatedFilters;
   emit("change-filter", filters);
 };
 </script>
