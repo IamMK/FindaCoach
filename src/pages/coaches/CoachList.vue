@@ -25,10 +25,8 @@ const setFilters = (updatedFilters: coachesFilter) => {
 
 const filteredCoaches = computed(() => {
   const coachesTemp = structuredClone(coaches.coaches);
-  console.log(activeFilters);
 
   return coachesTemp.filter((coach: coachesList) => {
-    console.log(coach);
     if (activeFilters.filters.frontend && coach.areas.includes("frontend")) {
       return true;
     }

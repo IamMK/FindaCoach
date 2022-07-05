@@ -1,3 +1,26 @@
+<script setup lang="ts">
+import { defineProps } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+console.log(route.path);
+
+const props = defineProps({
+  id: String,
+  firstName: String,
+  lastName: String,
+  rate: Number,
+  areas: Array,
+});
+
+console.log(props);
+
+const coachContactLink = route.path + "/" + props.id + "/contact";
+const coachDetailLink = route.path + "/" + props.id;
+
+const fullName = props.firstName + " " + props.lastName;
+</script>
+
 <template>
   <li class="coach">
     <h3 class="coach__fullname">{{ fullName }}</h3>
@@ -18,31 +41,6 @@
     </section>
   </li>
 </template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  props: {
-    id: String,
-    firstName: String,
-    lastName: String,
-    rate: Number,
-    areas: Array,
-  },
-  computed: {
-    fullName(): string {
-      return this.firstName + " " + this.lastName;
-    },
-    coachContactLink(): string {
-      return this.$route.path + "/" + this.id + "/contact";
-    },
-    coachDetailLink(): string {
-      return this.$route.path + "/" + this.id;
-    },
-  },
-});
-</script>
 
 <style lang="scss">
 .skills {

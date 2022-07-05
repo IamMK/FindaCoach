@@ -4,7 +4,7 @@ import { defineEmits, reactive } from "vue";
 let filters = reactive({
   frontend: true,
   backend: true,
-  carrer: true,
+  career: true,
 });
 
 const emit = defineEmits(["change-filter"]);
@@ -44,7 +44,7 @@ const setFilter = () => {
         type="checkbox"
         name="career"
         id="career"
-        v-model="filters.carrer"
+        v-model="filters.career"
         @change="setFilter"
         checked
       />
