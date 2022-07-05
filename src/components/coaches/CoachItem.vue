@@ -1,19 +1,17 @@
 <script setup lang="ts">
 import { defineProps } from "vue";
 import { useRoute } from "vue-router";
+import BaseBadge from "../ui/BaseBadge.vue";
 
 const route = useRoute();
-console.log(route.path);
 
 const props = defineProps({
   id: String,
   firstName: String,
   lastName: String,
   rate: Number,
-  areas: Array,
+  areas: Array as () => Array<string>,
 });
-
-console.log(props);
 
 const coachContactLink = route.path + "/" + props.id + "/contact";
 const coachDetailLink = route.path + "/" + props.id;

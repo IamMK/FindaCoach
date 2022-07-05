@@ -1,25 +1,19 @@
+<script setup lang="ts">
+import { defineProps } from "vue";
+
+const props = defineProps({
+  type: String,
+  title: String,
+});
+
+const text = props.title ? props.title.toUpperCase() : "";
+</script>
+
 <template>
   <span class="skills__badge" :class="'skills__badge--' + type">
     {{ text }}
   </span>
 </template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  props: {
-    type: String,
-    title: String,
-  },
-  computed: {
-    text(): string {
-      if (this.title === undefined) throw Error;
-      return this.title.toUpperCase();
-    },
-  },
-});
-</script>
 
 <style lang="scss">
 .skills__badge {
