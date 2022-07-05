@@ -10,35 +10,32 @@ import { useCoachesStore } from "@/store";
 import CoachItem from "@/components/coaches/CoachItem.vue";
 import BaseButton from "@/components/ui/BaseButton.vue";
 import coachFilter from "@/components/coaches/CoachFilter.vue";
-import { computed } from "@vue/reactivity";
+import { reactive, computed } from "@vue/reactivity";
+import { coachesList } from "@/store/coaches";
 
 const coaches = useCoachesStore();
 
-let activeFilters = { frontend: true, backend: true, career: true };
+let activeFilters = reactive({
+  filters: { frontend: true, backend: true, career: true },
+});
 
 const setFilters = (updatedFilters: coachesFilter) => {
-  console.log("Updated: ");
-  console.log(updatedFilters);
-
-  console.log("Old: ");
-  console.log(activeFilters);
-
-  activeFilters = updatedFilters;
-  console.log("New: ");
-  console.log(activeFilters);
+  activeFilters.filters = updatedFilters;
 };
 
 const filteredCoaches = computed(() => {
-  const coachesTemp = coaches.coaches;
+  const coachesTemp = structuredClone(coaches.coaches);
+  console.log(activeFilters);
 
-  return coachesTemp.filter((coach) => {
-    if (activeFilters.frontend && coach.areas.includes("frontend")) {
+  return coachesTemp.filter((coach: coachesList) => {
+    console.log(coach);
+    if (activeFilters.filters.frontend && coach.areas.includes("frontend")) {
       return true;
     }
-    if (activeFilters.backend && coach.areas.includes("backend")) {
+    if (activeFilters.filters.backend && coach.areas.includes("backend")) {
       return true;
     }
-    if (activeFilters.career && coach.areas.includes("career")) {
+    if (activeFilters.filters.career && coach.areas.includes("career")) {
       return true;
     }
   });

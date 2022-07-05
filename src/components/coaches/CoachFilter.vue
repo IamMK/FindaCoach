@@ -20,7 +20,7 @@ const emit = defineEmits(["change-filter"]);
 // };
 
 const setFilter = () => {
-  console.log(filters);
+  // console.log(filters);
 
   // console.log(event);
   // const input = event.target ? event.target.id : "Dupa";
