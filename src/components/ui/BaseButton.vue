@@ -1,3 +1,27 @@
+<script setup lang="ts">
+import { defineProps } from "vue";
+
+const props = defineProps({
+  mode: {
+    type: String,
+    required: false,
+    default: null,
+  },
+  link: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  to: {
+    type: String,
+    reuired: false,
+    default: "/",
+  },
+});
+
+const modeClass = props.mode != null ? "button--" + props.mode : "";
+</script>
+
 <template>
   <button class="button" v-if="!link" :class="modeClass">
     <slot></slot>
@@ -7,34 +31,14 @@
   ></router-link>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "@vue/runtime-core";
-
-export default defineComponent({
-  props: {
-    mode: {
-      type: String,
-      required: false,
-      default: null,
-    },
-    link: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    to: {
-      type: String,
-      reuired: false,
-      default: "/",
-    },
-  },
-  computed: {
-    modeClass(): string {
-      return this.mode != null ? "button--" + this.mode : "";
-    },
-  },
-});
-</script>
+<!-- <script lang="ts"> -->
+// import { defineComponent } from "@vue/runtime-core"; // export default
+defineComponent({ // props: { // mode: { // type: String, // required: false, //
+default: null, // }, // link: { // type: Boolean, // required: false, //
+default: false, // }, // to: { // type: String, // reuired: false, // default:
+"/", // }, // }, // computed: { // modeClass(): string { // return this.mode !=
+null ? "button--" + this.mode : ""; // }, // }, // });
+<!-- // </script> -->
 
 <style lang="scss">
 .button {
