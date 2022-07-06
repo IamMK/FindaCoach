@@ -1,3 +1,24 @@
+<script setup lang="ts">
+import { useCoachesStore } from "@/store";
+import { useRoute } from "vue-router";
+import { defineProps } from "vue";
+
+const props = defineProps({ id: String });
+
+const coachList = useCoachesStore();
+const selectedCoach = coachList.coaches.find(
+  (coach: { id: string }) => coach.id === props.id
+);
+
+const areas = selectedCoach?.areas;
+const rate = selectedCoach?.hourlyRate;
+const description = selectedCoach?.description;
+const fullName = selectedCoach?.firstName + " " + selectedCoach?.lastName;
+
+const route = useRoute();
+const contactLink = route.path + "/contact";
+</script>
+
 <template>
   <section>
     <base-card>
@@ -26,34 +47,3 @@
     </base-card>
   </section>
 </template>
-
-<script lang="ts">
-import { useCoachesStore } from "@/store";
-import { defineComponent } from "@vue/runtime-core";
-export default defineComponent({
-  props: { id: String },
-  computed: {
-    contactLink() {
-      return this.$route.path + "/contact"; //do poprawy all routes
-    },
-  },
-  setup(props) {
-    const coachList = useCoachesStore();
-
-    const selectedCoach = coachList.coaches.find(
-      (coach) => coach.id === props.id
-    );
-    const fullName = selectedCoach
-      ? selectedCoach.firstName + " " + selectedCoach.lastName
-      : console.log();
-    console.log(fullName);
-
-    return {
-      fullName,
-      rate: selectedCoach?.hourlyRate,
-      areas: selectedCoach?.areas,
-      description: selectedCoach?.description,
-    };
-  },
-});
-</script>
