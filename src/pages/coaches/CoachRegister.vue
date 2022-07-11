@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import CoachForm from "@/components/coaches/CoachForm.vue";
-import { coachesList } from "@/store/coaches";
+import { coachesList, useCoachesStore } from "@/store";
+import { useRouter } from "vue-router";
+
+const store = useCoachesStore();
+const router = useRouter();
 
 const saveData = (data: coachesList) => {
-  console.log(data);
+  store.registerCoach(data);
+  router.replace("/coaches");
 };
 </script>
 

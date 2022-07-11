@@ -11,7 +11,7 @@ import CoachItem from "@/components/coaches/CoachItem.vue";
 import BaseButton from "@/components/ui/BaseButton.vue";
 import coachFilter from "@/components/coaches/CoachFilter.vue";
 import { reactive, computed } from "@vue/reactivity";
-import { coachesList } from "@/store/coaches";
+import { coachesList } from "@/store";
 
 const coaches = useCoachesStore();
 
@@ -38,6 +38,8 @@ const filteredCoaches = computed(() => {
     }
   });
 });
+
+const isCoach = coaches.isCoach;
 </script>
 
 <template>
@@ -46,7 +48,9 @@ const filteredCoaches = computed(() => {
   <section class="controls">
     <base-card>
       <base-button mode="flat">Refresh</base-button>
-      <base-button link to="/register">Register as a Coach</base-button>
+      <base-button v-if="!isCoach" link to="/register"
+        >Register as a Coach</base-button
+      >
       <h2>Coaches</h2>
       <ul class="coach__container" v-if="coaches.coachesNotEmpty">
         <coach-item

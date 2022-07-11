@@ -1,3 +1,10 @@
+<script setup lang="ts">
+import { useCoachesStore } from "@/store";
+// import { reactive } from "vue";
+
+const coaches = useCoachesStore();
+</script>
+
 <template>
   <header class="header">
     <nav class="navigation">
@@ -11,7 +18,7 @@
             >Request</router-link
           >
         </li>
-        <li class="navigation__link">
+        <li v-if="!coaches.isCoach" class="navigation__link">
           <router-link class="navigation__url" to="register"
             >Register</router-link
           >

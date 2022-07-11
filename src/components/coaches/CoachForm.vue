@@ -6,10 +6,10 @@ import { defineEmits } from "vue";
 const emits = defineEmits(["save-data"]);
 
 const coachData = reactive({
-  firstname: "",
-  lastname: "",
+  firstName: "",
+  lastName: "",
   description: "",
-  rate: null,
+  hourlyRate: null,
   areas: [],
 });
 
@@ -29,7 +29,7 @@ const submitForm = () => {
         type="text"
         name="firstname"
         id="firstname"
-        v-model.trim="coachData.firstname"
+        v-model.trim="coachData.firstName"
       />
     </div>
     <div class="form-control">
@@ -38,7 +38,7 @@ const submitForm = () => {
         type="text"
         name="lastname"
         id="lastname"
-        v-model.trim="coachData.lastname"
+        v-model.trim="coachData.lastName"
       />
     </div>
     <div class="form-control">
@@ -56,7 +56,7 @@ const submitForm = () => {
         type="number"
         name="rate"
         id="rate"
-        v-model.number="coachData.rate"
+        v-model.number="coachData.hourlyRate"
       />
     </div>
     <div class="form-control">
