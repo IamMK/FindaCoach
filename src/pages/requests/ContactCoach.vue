@@ -1,4 +1,11 @@
 <script setup lang="ts">
+import { useRequestsStore } from "@/store/requests";
+import { useRoute, useRouter } from "vue-router";
+
+const requests = useRequestsStore();
+const route = useRoute();
+const router = useRouter();
+
 const formData = {
   email: "",
   message: "",
@@ -16,6 +23,12 @@ const submitForm = () => {
     formData.formIsValid = false;
     return;
   }
+  requests.addRequest({
+    email: formData.email,
+    message: formData.message,
+    coachId: route.params.id,
+  });
+  router.replace("/coaches");
 };
 </script>
 
