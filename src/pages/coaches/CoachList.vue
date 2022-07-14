@@ -1,17 +1,11 @@
 <script setup lang="ts">
-export type coachesFilter = {
-  frontend: boolean;
-  backend: boolean;
-  career: boolean;
-};
-
-import { useCoachesStore } from "@/store";
+import { useCoachesStore } from "@/store/coaches";
 
 import CoachItem from "@/components/coaches/CoachItem.vue";
 import BaseButton from "@/components/ui/BaseButton.vue";
 import coachFilter from "@/components/coaches/CoachFilter.vue";
 import { reactive, computed } from "@vue/reactivity";
-import { coachesList } from "@/store";
+import { coachesList, coachesFilter } from "@/types/types";
 
 const coaches = useCoachesStore();
 

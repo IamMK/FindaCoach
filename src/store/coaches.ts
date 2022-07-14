@@ -1,21 +1,6 @@
 import { defineStore } from "pinia";
-
-export type coachesList = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  areas: string[];
-  description: string;
-  hourlyRate: number;
-};
-
-export const useMainStore = defineStore("main", {
-  state: () => {
-    return {
-      userId: "c3",
-    };
-  },
-});
+import { coachesList } from "@/types/coachesTypes";
+import { useMainStore } from "./main";
 
 export const useCoachesStore = defineStore("coaches", {
   state: () => {

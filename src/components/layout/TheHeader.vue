@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCoachesStore } from "@/store";
+import { useCoachesStore } from "@/store/coaches";
 // import { reactive } from "vue";
 
 const coaches = useCoachesStore();

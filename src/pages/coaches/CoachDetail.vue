@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCoachesStore } from "@/store";
+import { useCoachesStore } from "@/store/coaches";
 import { useRoute } from "vue-router";
 import { defineProps } from "vue";
 
