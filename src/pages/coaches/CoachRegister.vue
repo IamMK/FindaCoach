@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import CoachForm from "@/components/coaches/CoachForm.vue";
-import { coachesList } from "@/types/types";
+import { coachesList } from "@/types/coachesTypes";
 import { useCoachesStore } from "@/store/coaches";
 import { useRouter } from "vue-router";
 

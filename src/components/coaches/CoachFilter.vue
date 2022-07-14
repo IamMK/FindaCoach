@@ -1,17 +1,7 @@
 <script setup lang="ts">
-import { defineEmits, reactive } from "vue";
+import { useMainStore } from "@/store/main";
 
-let filters = reactive({
-  frontend: true,
-  backend: true,
-  career: true,
-});
-
-const emit = defineEmits(["change-filter"]);
-
-const setFilter = () => {
-  emit("change-filter", filters);
-};
+const main = useMainStore();
 </script>
 
 <template>
@@ -22,8 +12,7 @@ const setFilter = () => {
         type="checkbox"
         name="frontend"
         id="frontend"
-        v-model="filters.frontend"
-        @change="setFilter"
+        v-model="main.filter.frontend"
         checked
       />
       <label for="frontend">Frontend</label>
@@ -33,8 +22,7 @@ const setFilter = () => {
         type="checkbox"
         name="backend"
         id="backend"
-        v-model="filters.backend"
-        @change="setFilter"
+        v-model="main.filter.backend"
         checked
       />
       <label for="backend">Backend</label>
@@ -44,8 +32,7 @@ const setFilter = () => {
         type="checkbox"
         name="career"
         id="career"
-        v-model="filters.career"
-        @change="setFilter"
+        v-model="main.filter.career"
         checked
       />
       <label for="career">Career</label>

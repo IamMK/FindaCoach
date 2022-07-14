@@ -4,30 +4,26 @@ import { useCoachesStore } from "@/store/coaches";
 import CoachItem from "@/components/coaches/CoachItem.vue";
 import BaseButton from "@/components/ui/BaseButton.vue";
 import coachFilter from "@/components/coaches/CoachFilter.vue";
-import { reactive, computed } from "@vue/reactivity";
-import { coachesList, coachesFilter } from "@/types/types";
+import { computed } from "@vue/reactivity";
+import { coachesList } from "@/types/coachesTypes";
+import { useMainStore } from "@/store/main";
 
 const coaches = useCoachesStore();
+const main = useMainStore();
 
-let activeFilters = reactive({
-  filters: { frontend: true, backend: true, career: true },
-});
-
-const setFilters = (updatedFilters: coachesFilter) => {
-  activeFilters.filters = updatedFilters;
-};
+let activeFilters = main.filter;
 
 const filteredCoaches = computed(() => {
   const coachesTemp = structuredClone(coaches.coaches);
 
   return coachesTemp.filter((coach: coachesList) => {
-    if (activeFilters.filters.frontend && coach.areas.includes("frontend")) {
+    if (activeFilters.frontend && coach.areas.includes("frontend")) {
       return true;
     }
-    if (activeFilters.filters.backend && coach.areas.includes("backend")) {
+    if (activeFilters.backend && coach.areas.includes("backend")) {
       return true;
     }
-    if (activeFilters.filters.career && coach.areas.includes("career")) {
+    if (activeFilters.career && coach.areas.includes("career")) {
       return true;
     }
   });
@@ -37,7 +33,7 @@ const isCoach = coaches.isCoach;
 </script>
 
 <template>
-  <section><coach-filter @change-filter="setFilters" /></section>
+  <section><coach-filter /></section>
 
   <section class="controls">
     <base-card>
