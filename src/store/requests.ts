@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { useMainStore } from "./main";
 
 export type request = {
   id: string;
@@ -14,8 +15,12 @@ export const useRequestsStore = defineStore("requests", {
     };
   },
   getters: {
-    hasRequests: (state) => {
-      return state.requests.length > 0 && state.requests;
+    hasRequests(): boolean {
+      return this.receivedRequest.length > 0;
+    },
+    receivedRequest: (state): request[] => {
+      const userId = useMainStore().userId;
+      return state.requests.filter((request) => request.coachId === userId);
     },
   },
   actions: {

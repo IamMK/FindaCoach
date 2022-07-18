@@ -14,7 +14,7 @@ const requests = useRequestsStore();
       </header>
       <ul v-if="requests.hasRequests">
         <request-item
-          v-for="request in requests.requests"
+          v-for="request in requests.receivedRequest"
           :key="request.id"
           :userEmail="request.userEmail"
           :message="request.message"
