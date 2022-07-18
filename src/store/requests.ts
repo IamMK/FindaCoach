@@ -13,6 +13,11 @@ export const useRequestsStore = defineStore("requests", {
       requests: [] as request[],
     };
   },
+  getters: {
+    hasRequests: (state) => {
+      return state.requests.length > 0 && state.requests;
+    },
+  },
   actions: {
     addRequest(data: {
       email: string;
