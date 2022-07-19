@@ -28,8 +28,6 @@ const filteredCoaches = computed(() => {
     }
   });
 });
-
-const isCoach = coaches.isCoach;
 </script>
 
 <template>
@@ -38,7 +36,7 @@ const isCoach = coaches.isCoach;
   <section class="controls">
     <base-card>
       <base-button mode="flat">Refresh</base-button>
-      <base-button v-if="!isCoach" link to="/register"
+      <base-button v-if="!coaches.isCoach" link to="/register"
         >Register as a Coach</base-button
       >
       <h2>Coaches</h2>
