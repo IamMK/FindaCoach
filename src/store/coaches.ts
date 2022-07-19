@@ -39,14 +39,25 @@ export const useCoachesStore = defineStore("coaches", {
     },
   },
   actions: {
-    registerCoach(coachData: coachesList) {
+    async registerCoach(coachData: coachesList) {
+      const userId = useMainStore().userId;
       const newCoach = {
         ...coachData,
-        id: "c" + (this.coaches.length + 1),
+        // id: "c" + (this.coaches.length + 1),
       };
 
-      console.log(newCoach);
-      this.coaches.push(newCoach);
+      const response = await fetch(`https://findacoach-37458-default-rtdb.europe-west1.firebasedatabase.app/coaches/${userId}.json`, {
+        method: "PUT",
+        body: JSON.stringify(newCoach)
+      });
+
+      //const responseData = await response.json();
+
+      if (!response.ok) {
+        // error
+      }
+
+      this.coaches.push({ ...newCoach, id: userId });
     },
   },
 });
