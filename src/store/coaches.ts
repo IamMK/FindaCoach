@@ -54,13 +54,39 @@ export const useCoachesStore = defineStore("coaches", {
         }
       );
 
-      //const responseData = await response.json();
-
       if (!response.ok) {
         // error
       }
 
       this.coaches.push({ ...newCoach, id: userId });
+    },
+    async loadCoaches() {
+      const response = await fetch(
+        `https://findacoach-37458-default-rtdb.europe-west1.firebasedatabase.app/coaches.json`
+      );
+
+      const responseData: coachesList[] = await response.json();
+      console.log(responseData);
+
+      if (!response.ok) {
+        // error
+      }
+
+      const coaches = [];
+
+      for (const key in responseData) {
+        const coach: coachesList = {
+          id: key,
+          firstName: responseData[key].firstName,
+          lastName: responseData[key].lastName,
+          description: responseData[key].description,
+          hourlyRate: responseData[key].hourlyRate,
+          areas: responseData[key].areas,
+        };
+        coaches.push(coach);
+      }
+
+      this.coaches = coaches;
     },
   },
 });

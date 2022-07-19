@@ -7,6 +7,7 @@ import coachFilter from "@/components/coaches/CoachFilter.vue";
 import { computed } from "@vue/reactivity";
 import { coachesList } from "@/types/coachesTypes";
 import { useMainStore } from "@/store/main";
+import { onMounted } from "vue";
 
 const coaches = useCoachesStore();
 const main = useMainStore();
@@ -28,6 +29,14 @@ const filteredCoaches = computed(() => {
     }
   });
 });
+
+const loadCoaches = () => {
+  coaches.loadCoaches();
+};
+
+onMounted(() => {
+  loadCoaches();
+});
 </script>
 
 <template>
@@ -35,7 +44,7 @@ const filteredCoaches = computed(() => {
 
   <section class="controls">
     <base-card>
-      <base-button mode="flat">Refresh</base-button>
+      <base-button mode="flat" @click="loadCoaches">Refresh</base-button>
       <base-button v-if="!coaches.isCoach" link to="/register"
         >Register as a Coach</base-button
       >
