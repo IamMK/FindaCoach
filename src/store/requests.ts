@@ -1,12 +1,6 @@
 import { defineStore } from "pinia";
 import { useMainStore } from "./main";
-
-export type request = {
-  id: string;
-  userEmail: string;
-  message: string;
-  coachId: string | string[];
-};
+import { request } from "@/types/requestTypes";
 
 export const useRequestsStore = defineStore("requests", {
   state: () => {
