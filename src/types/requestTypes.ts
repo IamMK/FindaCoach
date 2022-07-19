@@ -1,6 +1,6 @@
 export type request = {
-    id: string;
-    userEmail: string;
-    message: string;
-    coachId: string | string[];
+  id: string;
+  userEmail: string;
+  message: string;
+  coachId: string | string[];
 };
