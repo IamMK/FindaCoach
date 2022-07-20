@@ -66,7 +66,6 @@ export const useCoachesStore = defineStore("coaches", {
       );
 
       const responseData: coachesList[] = await response.json();
-      console.log(responseData);
 
       if (!response.ok) {
         // error

@@ -8,11 +8,14 @@ import { computed } from "@vue/reactivity";
 import { coachesList } from "@/types/coachesTypes";
 import { useMainStore } from "@/store/main";
 import { onMounted } from "vue";
+import { reactive } from "vue";
 
 const coaches = useCoachesStore();
 const main = useMainStore();
 
 let activeFilters = main.filter;
+
+const state = reactive({ isLoading: false });
 
 const filteredCoaches = computed(() => {
   const coachesTemp = structuredClone(coaches.coaches);
@@ -30,8 +33,10 @@ const filteredCoaches = computed(() => {
   });
 });
 
-const loadCoaches = () => {
-  coaches.loadCoaches();
+const loadCoaches = async () => {
+  state.isLoading = true;
+  await coaches.loadCoaches();
+  state.isLoading = false;
 };
 
 onMounted(() => {
@@ -45,11 +50,20 @@ onMounted(() => {
   <section class="controls">
     <base-card>
       <base-button mode="flat" @click="loadCoaches">Refresh</base-button>
-      <base-button v-if="!coaches.isCoach" link to="/register"
+      <base-button
+        v-if="!coaches.isCoach && !state.isLoading"
+        link
+        to="/register"
         >Register as a Coach</base-button
       >
-      <h2>Coaches</h2>
-      <ul class="coach__container" v-if="coaches.coachesNotEmpty">
+      <div v-if="state.isLoading">
+        <base-spinner></base-spinner>
+      </div>
+      <!-- <h2>Coaches</h2> -->
+      <ul
+        class="coach__container"
+        v-else-if="!state.isLoading && coaches.coachesNotEmpty"
+      >
         <coach-item
           v-for="coach in filteredCoaches"
           :key="coach.id"
