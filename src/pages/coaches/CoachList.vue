@@ -15,10 +15,10 @@ const main = useMainStore();
 
 let activeFilters = main.filter;
 
-const state = reactive({ isLoading: false });
+const state = reactive({ isLoading: false, error: null });
 
 const filteredCoaches = computed(() => {
-  const coachesTemp = structuredClone(coaches.coaches);
+  const coachesTemp = coaches.coaches;
 
   return coachesTemp.filter((coach: coachesList) => {
     if (activeFilters.frontend && coach.areas.includes("frontend")) {
@@ -35,7 +35,11 @@ const filteredCoaches = computed(() => {
 
 const loadCoaches = async () => {
   state.isLoading = true;
-  await coaches.loadCoaches();
+  try {
+    await coaches.loadCoaches();
+  } catch (error: any) {
+    state.error = error.message || "Sth went Wrong";
+  }
   state.isLoading = false;
 };
 
@@ -45,6 +49,13 @@ onMounted(() => {
 </script>
 
 <template>
+  <base-dialog
+    :show="!!state.error"
+    title="An error occured"
+    @close="handleError"
+  >
+    <p>{{ state.error }}</p>
+  </base-dialog>
   <section><coach-filter /></section>
 
   <section class="controls">

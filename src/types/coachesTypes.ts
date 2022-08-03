@@ -5,6 +5,7 @@ export type coachesList = {
   areas: string[];
   description: string;
   hourlyRate: number;
+  message?: string;
 };
 
 export type coachesFilter = {
