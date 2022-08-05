@@ -2,6 +2,8 @@ import { defineStore } from "pinia";
 import { useMainStore } from "./main";
 import { request } from "@/types/requestTypes";
 
+// const main = useMainStore();
+
 export const useRequestsStore = defineStore("requests", {
   state: () => {
     return {
@@ -47,6 +49,31 @@ export const useRequestsStore = defineStore("requests", {
       // console.log(response);
 
       this.requests.push(newRequest);
+    },
+    async fetchRequest() {
+      const userId = useMainStore().userId;
+      const request = await fetch(
+        `https://findacoach-37458-default-rtdb.europe-west1.firebasedatabase.app/requests/${userId}.json`
+      );
+      const response = await request.json();
+
+      if (!request.ok) {
+        const error = new Error("Failed to fetch Request");
+        throw error;
+      }
+
+      const requests = [];
+
+      for (const key in response) {
+        const request: request = {
+          id: key,
+          coachId: userId,
+          message: response[key].message,
+          userEmail: response[key].userEmail,
+        };
+        requests.push(request);
+      }
+      this.requests = requests;
     },
   },
 });

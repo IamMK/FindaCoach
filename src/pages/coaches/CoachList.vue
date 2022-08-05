@@ -2,7 +2,7 @@
 import { useCoachesStore } from "@/store/coaches";
 
 import CoachItem from "@/components/coaches/CoachItem.vue";
-import BaseButton from "@/components/ui/BaseButton.vue";
+// import BaseButton from "@/components/ui/BaseButton.vue";
 import coachFilter from "@/components/coaches/CoachFilter.vue";
 import { computed } from "@vue/reactivity";
 import { coachesList } from "@/types/coachesTypes";
@@ -45,7 +45,7 @@ const loadCoaches = async () => {
 
 const handleError = () => {
   state.error = null;
-}
+};
 
 onMounted(() => {
   loadCoaches();
@@ -53,7 +53,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <base-dialog :show="!!state.error" title="An error occured" @close="handleError">
+  <base-dialog
+    :show="!!state.error"
+    title="An error occured"
+    @close="handleError"
+  >
     <p>{{ state.error }}</p>
   </base-dialog>
   <section><coach-filter /></section>
