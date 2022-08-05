@@ -47,48 +47,54 @@ const handleError = () => {
   state.error = null;
 };
 
-loadCoaches();
+onMounted(() => {
+  loadCoaches();
+});
 </script>
 
 <template>
-  <base-dialog
-    :show="!!state.error"
-    title="An error occured"
-    @close="handleError"
-  >
-    <p>{{ state.error }}</p>
-  </base-dialog>
-  <section><coach-filter /></section>
+  <div>
+    <base-dialog
+      :show="!!state.error"
+      title="An error occured"
+      @close="handleError"
+    >
+      <p>{{ state.error }}</p>
+    </base-dialog>
+    <section><coach-filter /></section>
 
-  <section class="controls">
-    <base-card>
-      <base-button mode="flat" @click="loadCoaches(true)">Refresh</base-button>
-      <base-button
-        v-if="!coaches.isCoach && !state.isLoading"
-        link
-        to="/register"
-        >Register as a Coach</base-button
-      >
-      <div v-if="state.isLoading">
-        <base-spinner></base-spinner>
-      </div>
-      <ul
-        class="coach__container"
-        v-else-if="!state.isLoading && coaches.coachesNotEmpty"
-      >
-        <coach-item
-          v-for="coach in filteredCoaches"
-          :key="coach.id"
-          :id="coach.id"
-          :first-name="coach.firstName"
-          :last-name="coach.lastName"
-          :rate="coach.hourlyRate"
-          :areas="coach.areas"
-        ></coach-item>
-      </ul>
-      <h3 v-else>And coacherów niet</h3>
-    </base-card>
-  </section>
+    <section class="controls">
+      <base-card>
+        <base-button mode="flat" @click="loadCoaches(true)"
+          >Refresh</base-button
+        >
+        <base-button
+          v-if="!coaches.isCoach && !state.isLoading"
+          link
+          to="/register"
+          >Register as a Coach</base-button
+        >
+        <div v-if="state.isLoading">
+          <base-spinner></base-spinner>
+        </div>
+        <ul
+          class="coach__container"
+          v-else-if="!state.isLoading && coaches.coachesNotEmpty"
+        >
+          <coach-item
+            v-for="coach in filteredCoaches"
+            :key="coach.id"
+            :id="coach.id"
+            :first-name="coach.firstName"
+            :last-name="coach.lastName"
+            :rate="coach.hourlyRate"
+            :areas="coach.areas"
+          ></coach-item>
+        </ul>
+        <h3 v-else>And coacherów niet</h3>
+      </base-card>
+    </section>
+  </div>
 </template>
 
 <style lang="scss">
