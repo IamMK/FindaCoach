@@ -33,10 +33,10 @@ const filteredCoaches = computed(() => {
   });
 });
 
-const loadCoaches = async () => {
+const loadCoaches = async (refresh = false) => {
   state.isLoading = true;
   try {
-    await coaches.loadCoaches();
+    await coaches.loadCoaches({ forceRefresh: refresh });
   } catch (error: any) {
     state.error = error.message || "Sth went Wrong";
   }
@@ -47,9 +47,7 @@ const handleError = () => {
   state.error = null;
 };
 
-onMounted(() => {
-  loadCoaches();
-});
+loadCoaches();
 </script>
 
 <template>
@@ -64,7 +62,7 @@ onMounted(() => {
 
   <section class="controls">
     <base-card>
-      <base-button mode="flat" @click="loadCoaches">Refresh</base-button>
+      <base-button mode="flat" @click="loadCoaches(true)">Refresh</base-button>
       <base-button
         v-if="!coaches.isCoach && !state.isLoading"
         link
@@ -74,7 +72,6 @@ onMounted(() => {
       <div v-if="state.isLoading">
         <base-spinner></base-spinner>
       </div>
-      <!-- <h2>Coaches</h2> -->
       <ul
         class="coach__container"
         v-else-if="!state.isLoading && coaches.coachesNotEmpty"

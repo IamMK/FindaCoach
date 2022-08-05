@@ -5,26 +5,8 @@ import { useMainStore } from "./main";
 export const useCoachesStore = defineStore("coaches", {
   state: () => {
     return {
-      coaches: [
-        // {
-        //   id: "c1",
-        //   firstName: "Maximilian",
-        //   lastName: "Schwarzmüller",
-        //   areas: ["frontend", "backend", "career"],
-        //   description:
-        //     "I'm Maximilian and I've worked as a freelance web developer for years. Let me help you become a developer as well!",
-        //   hourlyRate: 30,
-        // },
-        // {
-        //   id: "c2",
-        //   firstName: "Julie",
-        //   lastName: "Jones",
-        //   areas: ["frontend", "career"],
-        //   description:
-        //     "I am Julie and as a senior developer in a big tech company, I can help you get your first job or progress in your current role.",
-        //   hourlyRate: 30,
-        // },
-      ] as coachesList[],
+      lastFetch: null as null | number,
+      coaches: [] as coachesList[],
     };
   },
   getters: {
@@ -36,6 +18,14 @@ export const useCoachesStore = defineStore("coaches", {
       const userId = useMainStore().userId;
 
       return coaches.some((coach) => coach.id === userId);
+    },
+    shouldUpdate: (state) => {
+      const lastFetch = state.lastFetch;
+      if (!lastFetch) {
+        return true;
+      }
+      const currentTimeStamp = new Date().getTime();
+      return currentTimeStamp - lastFetch - 1000 > 60;
     },
   },
   actions: {
@@ -60,7 +50,10 @@ export const useCoachesStore = defineStore("coaches", {
 
       this.coaches.push({ ...newCoach, id: userId });
     },
-    async loadCoaches() {
+    async loadCoaches(payload: { forceRefresh: boolean }) {
+      if (!payload.forceRefresh && !this.shouldUpdate) {
+        return;
+      }
       const response = await fetch(
         "https://findacoach-37458-default-rtdb.europe-west1.firebasedatabase.app/coaches.json"
       );
@@ -87,6 +80,10 @@ export const useCoachesStore = defineStore("coaches", {
       }
 
       this.coaches = coaches;
+      this.setFetchTimeStamp;
+    },
+    setFetchTimeStamp() {
+      this.lastFetch = new Date().getTime();
     },
   },
 });
