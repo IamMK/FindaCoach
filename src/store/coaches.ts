@@ -86,9 +86,7 @@ export const useCoachesStore = defineStore("coaches", {
         coaches.push(coach);
       }
 
-      console.log(coaches);
       this.coaches = coaches;
-      console.log(this.coaches);
     },
   },
 });

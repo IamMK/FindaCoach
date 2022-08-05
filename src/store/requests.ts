@@ -18,17 +18,34 @@ export const useRequestsStore = defineStore("requests", {
     },
   },
   actions: {
-    addRequest(data: {
+    async addRequest(data: {
       email: string;
       message: string;
       coachId: string | string[];
     }) {
       const newRequest: request = {
-        id: new Date().toISOString(),
         userEmail: data.email,
         message: data.message,
-        coachId: data.coachId,
       };
+      const request = await fetch(
+        `https://findacoach-37458-default-rtdb.europe-west1.firebasedatabase.app/requests/${data.coachId}.json`,
+        {
+          method: "POST",
+          body: JSON.stringify(newRequest),
+        }
+      );
+      const response = await request.json();
+
+      if (!request.ok) {
+        const error = new Error(response.message || "Failed to send Request");
+        throw error;
+      }
+
+      newRequest.id = response.name;
+      newRequest.coachId = response.coachId;
+
+      // console.log(response);
+
       this.requests.push(newRequest);
     },
   },

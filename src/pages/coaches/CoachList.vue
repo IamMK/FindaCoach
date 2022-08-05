@@ -43,17 +43,17 @@ const loadCoaches = async () => {
   state.isLoading = false;
 };
 
+const handleError = () => {
+  state.error = null;
+}
+
 onMounted(() => {
   loadCoaches();
 });
 </script>
 
 <template>
-  <base-dialog
-    :show="!!state.error"
-    title="An error occured"
-    @close="handleError"
-  >
+  <base-dialog :show="!!state.error" title="An error occured" @close="handleError">
     <p>{{ state.error }}</p>
   </base-dialog>
   <section><coach-filter /></section>
