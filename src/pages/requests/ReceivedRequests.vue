@@ -34,7 +34,8 @@ onMounted(() => {
       :show="!!state.error"
       title="An error occured"
       @close="handleError"
-    ></base-dialog>
+      ><p>{{ state.error }}</p></base-dialog
+    >
     <section>
       <base-card>
         <header>
