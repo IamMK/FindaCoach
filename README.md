@@ -1,5 +1,12 @@
 # findcoach
 
+Before start using project, create appConfig.ts file in `src` directory, and put inside:
+```js
+export const appConfig = {
+  appkey: "APIKEY", //for example from Firebase
+};
+```
+
 ## Project setup
 ```
 npm install
