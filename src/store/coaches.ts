@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { coachesList } from "@/types/coachesTypes";
-import { useMainStore } from "./main";
+import { useAuthStore } from "./auth";
 
 export const useCoachesStore = defineStore("coaches", {
   state: () => {
@@ -15,7 +15,7 @@ export const useCoachesStore = defineStore("coaches", {
     },
     isCoach: (state) => {
       const coaches = state.coaches;
-      const userId = useMainStore().userId;
+      const userId = useAuthStore().userId;
 
       return coaches.some((coach) => coach.id === userId);
     },
@@ -30,7 +30,7 @@ export const useCoachesStore = defineStore("coaches", {
   },
   actions: {
     async registerCoach(coachData: coachesList) {
-      const userId = useMainStore().userId;
+      const userId = useAuthStore().userId;
       const newCoach = {
         ...coachData,
         // id: "c" + (this.coaches.length + 1),

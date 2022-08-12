@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { useMainStore } from "./main";
+import { useAuthStore } from "./auth";
 import { request } from "@/types/requestTypes";
 
 // const main = useMainStore();
@@ -15,7 +15,7 @@ export const useRequestsStore = defineStore("requests", {
       return this.receivedRequest.length > 0;
     },
     receivedRequest: (state): request[] => {
-      const userId = useMainStore().userId;
+      const userId = useAuthStore().userId;
       return state.requests.filter((request) => request.coachId === userId);
     },
   },
@@ -51,7 +51,7 @@ export const useRequestsStore = defineStore("requests", {
       this.requests.push(newRequest);
     },
     async fetchRequest() {
-      const userId = useMainStore().userId;
+      const userId = useAuthStore().userId;
       const request = await fetch(
         `https://findacoach-37458-default-rtdb.europe-west1.firebasedatabase.app/requests/${userId}.json`
       );
