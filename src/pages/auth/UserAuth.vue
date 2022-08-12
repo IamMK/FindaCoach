@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { reactive, computed } from "vue";
+import { useAuthStore } from "@/store/auth";
+
+const authStore = useAuthStore();
 
 const data = reactive({
   email: "",
@@ -36,7 +39,15 @@ const submitForm = () => {
     data.formIsValid = false;
     return;
   }
-  // HTTP REQUEST
+
+  if (data.mode === "login") {
+    //...
+  } else {
+    authStore.signup({
+      email: data.email,
+      password: data.password,
+    });
+  }
 };
 </script>
 

@@ -1,5 +1,5 @@
 export type coachesList = {
-  id: string;
+  id: string | null;
   firstName: string;
   lastName: string;
   areas: string[];
