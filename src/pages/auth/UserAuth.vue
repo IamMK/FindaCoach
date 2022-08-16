@@ -46,7 +46,10 @@ const submitForm = async () => {
 
   try {
     if (data.mode === "login") {
-      //...
+      await authStore.login({
+        email: data.email,
+        password: data.password
+      })
     } else {
       await authStore.signup({
         email: data.email,
