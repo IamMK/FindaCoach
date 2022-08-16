@@ -37,7 +37,6 @@ export const useAuthStore = defineStore("auth", {
         userId: responseData.localId,
         tokenExpiration: responseData.expiresIn,
       });
-
     },
     async signup(data: auth) {
       const response = await fetch(

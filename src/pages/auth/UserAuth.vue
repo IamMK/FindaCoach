@@ -44,17 +44,16 @@ const submitForm = async () => {
 
   data.isLoading = true;
 
+  const authData = reactive({
+    email: data.email,
+    password: data.password,
+  });
+
   try {
     if (data.mode === "login") {
-      await authStore.login({
-        email: data.email,
-        password: data.password
-      })
+      await authStore.login(authData);
     } else {
-      await authStore.signup({
-        email: data.email,
-        password: data.password,
-      });
+      await authStore.signup(authData);
     }
   } catch (err: string) {
     data.error = err || "Failed to authenticate. Try later.";
