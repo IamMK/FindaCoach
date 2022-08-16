@@ -11,9 +11,15 @@ export const useAuthStore = defineStore("auth", {
     };
   },
   actions: {
-    async login(data: auth) {
+    async authenticate(data: auth) {
+      let authType = "";
+      if (data.authType === "login") {
+        authType = "signInWithPassword";
+      } else {
+        authType = "signUp";
+      }
       const response = await fetch(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${appConfig.appkey}`,
+        `https://identitytoolkit.googleapis.com/v1/accounts:${authType}?key=${appConfig.appkey}`,
         {
           method: "POST",
           body: JSON.stringify({
@@ -38,33 +44,33 @@ export const useAuthStore = defineStore("auth", {
         tokenExpiration: responseData.expiresIn,
       });
     },
-    async signup(data: auth) {
-      const response = await fetch(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${appConfig.appkey}`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            email: data.email,
-            password: data.password,
-            returnSecureToken: true,
-          }),
-        }
-      );
-      const responseData = await response.json();
+    // async signup(data: auth) {
+    //   const response = await fetch(
+    //     `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${appConfig.appkey}`,
+    //     {
+    //       method: "POST",
+    //       body: JSON.stringify({
+    //         email: data.email,
+    //         password: data.password,
+    //         returnSecureToken: true,
+    //       }),
+    //     }
+    //   );
+    //   const responseData = await response.json();
 
-      if (!response.ok) {
-        const error = new Error(
-          responseData.message || "Failed to authenticate."
-        );
-        throw error;
-      }
+    //   if (!response.ok) {
+    //     const error = new Error(
+    //       responseData.message || "Failed to authenticate."
+    //     );
+    //     throw error;
+    //   }
 
-      this.setUser({
-        token: responseData.idToken,
-        userId: responseData.localId,
-        tokenExpiration: responseData.expiresIn,
-      });
-    },
+    //   this.setUser({
+    //     token: responseData.idToken,
+    //     userId: responseData.localId,
+    //     tokenExpiration: responseData.expiresIn,
+    //   });
+    // },
     setUser(userData: userData) {
       this.token = userData.token;
       this.userId = userData.userId;

@@ -2,6 +2,7 @@ export type auth = {
   email: string;
   password: string;
   returnSecureToken?: boolean;
+  authType: "login" | "signup";
 };
 
 export type userData = {

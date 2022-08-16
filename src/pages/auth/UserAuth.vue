@@ -7,7 +7,7 @@ const authStore = useAuthStore();
 const data = reactive({
   email: "",
   password: "",
-  mode: "login",
+  mode: "login" as "login" | "signup",
   formIsValid: true,
   isLoading: false,
   error: null as string | null,
@@ -50,11 +50,7 @@ const submitForm = async () => {
   });
 
   try {
-    if (data.mode === "login") {
-      await authStore.login(authData);
-    } else {
-      await authStore.signup(authData);
-    }
+    await authStore.authenticate({ ...authData, authType: data.mode });
   } catch (err: string) {
     data.error = err || "Failed to authenticate. Try later.";
   }
