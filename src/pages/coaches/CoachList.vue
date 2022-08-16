@@ -2,7 +2,6 @@
 import { useCoachesStore } from "@/store/coaches";
 
 import CoachItem from "@/components/coaches/CoachItem.vue";
-// import BaseButton from "@/components/ui/BaseButton.vue";
 import coachFilter from "@/components/coaches/CoachFilter.vue";
 import { computed } from "@vue/reactivity";
 import { coachesList } from "@/types/coachesTypes";
@@ -83,8 +82,8 @@ onMounted(() => {
         >
           <coach-item
             v-for="coach in filteredCoaches"
-            :key="coach.id"
-            :id="coach.id"
+            :key="(coach.id as string)"
+            :id="(coach.id as string)"
             :first-name="coach.firstName"
             :last-name="coach.lastName"
             :rate="coach.hourlyRate"

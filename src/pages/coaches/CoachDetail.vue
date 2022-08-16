@@ -6,9 +6,7 @@ import { defineProps } from "vue";
 const props = defineProps({ id: String });
 
 const coachList = useCoachesStore();
-const selectedCoach = coachList.coaches.find(
-  (coach: { id: string }) => coach.id === props.id
-);
+const selectedCoach = coachList.coaches.find((coach) => coach.id === props.id);
 
 const areas = selectedCoach?.areas;
 const rate = selectedCoach?.hourlyRate;
