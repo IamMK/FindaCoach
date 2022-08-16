@@ -33,11 +33,12 @@ export const useCoachesStore = defineStore("coaches", {
       const userId = useAuthStore().userId;
       const newCoach = {
         ...coachData,
-        // id: "c" + (this.coaches.length + 1),
       };
 
+      const token = useAuthStore().token;
+
       const response = await fetch(
-        `https://findacoach-37458-default-rtdb.europe-west1.firebasedatabase.app/coaches/${userId}.json`,
+        `https://findacoach-37458-default-rtdb.europe-west1.firebasedatabase.app/coaches/${userId}.json?auth=${token}`,
         {
           method: "PUT",
           body: JSON.stringify(newCoach),

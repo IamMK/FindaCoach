@@ -52,24 +52,25 @@ export const useRequestsStore = defineStore("requests", {
     },
     async fetchRequest() {
       const userId = useAuthStore().userId;
-      const request = await fetch(
-        `https://findacoach-37458-default-rtdb.europe-west1.firebasedatabase.app/requests/${userId}.json`
+      const token = useAuthStore().token;
+      const response = await fetch(
+        `https://findacoach-37458-default-rtdb.europe-west1.firebasedatabase.app/requests/${userId}.json?auth=${token}`
       );
-      const response = await request.json();
+      const responseData = await response.json();
 
-      if (!request.ok) {
+      if (!response.ok) {
         const error = new Error("Failed to fetch Request");
         throw error;
       }
 
       const requests = [];
 
-      for (const key in response) {
+      for (const key in responseData) {
         const request: request = {
           id: key,
           coachId: userId,
-          message: response[key].message,
-          userEmail: response[key].userEmail,
+          message: responseData[key].message,
+          userEmail: responseData[key].userEmail,
         };
         requests.push(request);
       }
