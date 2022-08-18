@@ -1,9 +1,8 @@
-<!-- <script setup lang="ts">
-import { useCoachesStore } from "@/store/coaches";
-// import { reactive } from "vue";
+<script setup lang="ts">
+import { useAuthStore } from "@/store/auth";
 
-const coaches = useCoachesStore();
-</script> -->
+const authStore = useAuthStore();
+</script>
 
 <template>
   <header class="header">
@@ -13,16 +12,14 @@ const coaches = useCoachesStore();
         <li class="navigation__link">
           <router-link class="navigation__url" to="/">Home</router-link>
         </li>
-        <li class="navigation__link">
+        <li v-if="authStore.isAuthenticated" class="navigation__link">
           <router-link class="navigation__url" to="requests"
             >Request</router-link
           >
         </li>
-        <!-- <li v-if="!coaches.isCoach" class="navigation__link">
-          <router-link class="navigation__url" to="register"
-            >Register</router-link
-          >
-        </li> -->
+        <li v-else class="navigation__link">
+          <router-link class="navigation__url" to="auth">Login</router-link>
+        </li>
       </ul>
     </nav>
   </header>

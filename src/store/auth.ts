@@ -10,6 +10,11 @@ export const useAuthStore = defineStore("auth", {
       tokenExpiration: null,
     };
   },
+  getters: {
+    isAuthenticated(state) {
+      return !!state.token;
+    },
+  },
   actions: {
     async authenticate(data: auth) {
       let authType = "";

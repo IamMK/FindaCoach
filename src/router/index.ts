@@ -44,7 +44,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/auth",
-    name: "path",
+    name: "auth",
     component: UserAuth,
   },
   {

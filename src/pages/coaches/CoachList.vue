@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import { useCoachesStore } from "@/store/coaches";
+import { useMainStore } from "@/store/main";
+import { useAuthStore } from "@/store/auth";
 
 import CoachItem from "@/components/coaches/CoachItem.vue";
 import coachFilter from "@/components/coaches/CoachFilter.vue";
 import { computed } from "@vue/reactivity";
 import { coachesList } from "@/types/coachesTypes";
-import { useMainStore } from "@/store/main";
 import { onMounted } from "vue";
 import { reactive } from "vue";
 
 const coaches = useCoachesStore();
 const main = useMainStore();
+const authStore = useAuthStore();
 
 let activeFilters = main.filter;
 
@@ -67,8 +69,13 @@ onMounted(() => {
         <base-button mode="flat" @click="loadCoaches(true)"
           >Refresh</base-button
         >
+        <base-button link to="/auth" v-if="!authStore.isAuthenticated"
+          >Login</base-button
+        >
         <base-button
-          v-if="!coaches.isCoach && !state.isLoading"
+          v-if="
+            authStore.isAuthenticated && !coaches.isCoach && !state.isLoading
+          "
           link
           to="/register"
           >Register as a Coach</base-button
