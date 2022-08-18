@@ -17,6 +17,9 @@ const authStore = useAuthStore();
             >Request</router-link
           >
         </li>
+        <li v-if="authStore.isAuthenticated" class="navigation__link">
+          <base-button @click="authStore.logout">Logout</base-button>
+        </li>
         <li v-else class="navigation__link">
           <router-link class="navigation__url" to="auth">Login</router-link>
         </li>
