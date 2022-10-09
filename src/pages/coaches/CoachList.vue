@@ -69,7 +69,10 @@ onMounted(() => {
         <base-button mode="flat" @click="loadCoaches(true)"
           >Refresh</base-button
         >
-        <base-button link to="/auth" v-if="!authStore.isAuthenticated"
+        <base-button
+          link
+          to="/auth?redirect=register"
+          v-if="!authStore.isAuthenticated"
           >Login</base-button
         >
         <base-button

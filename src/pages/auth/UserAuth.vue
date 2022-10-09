@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { reactive, computed } from "vue";
 import { useAuthStore } from "@/store/auth";
+import { useRouter, useRoute } from "vue-router";
 
 const authStore = useAuthStore();
+const router = useRouter();
+const route = useRoute();
 
 const data = reactive({
   email: "",
@@ -51,7 +54,9 @@ const submitForm = async () => {
 
   try {
     await authStore.authenticate({ ...authData, authType: data.mode });
-  } catch (err: string) {
+    const redirectingURL = "/" + (route.query.redirect || "coaches");
+    router.replace(redirectingURL);
+  } catch (err: any) {
     data.error = err || "Failed to authenticate. Try later.";
   }
 

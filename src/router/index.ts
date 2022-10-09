@@ -9,6 +9,9 @@ import ReceivedRequests from "@/pages/requests/ReceivedRequests.vue";
 import UserAuth from "@/pages/auth/UserAuth.vue";
 
 import NotFound from "@/pages/NotFound.vue";
+import { useAuthStore } from "@/store/auth";
+
+// const authStore = useAuthStore();
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -35,16 +38,19 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/register",
     name: "register",
+    meta: { requiresAuth: true },
     component: CoachRegister,
   },
   {
     path: "/requests",
     name: "requests",
+    meta: { requiresAuth: true },
     component: ReceivedRequests,
   },
   {
     path: "/auth",
     name: "auth",
+    meta: { requiresUnauth: true },
     component: UserAuth,
   },
   {
@@ -57,6 +63,16 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, _, next) => {
+  if (to.meta.requiresAuth && !useAuthStore().isAuthenticated) {
+    next("/auth");
+  } else if (to.meta.requiresUnauth && useAuthStore().isAuthenticated) {
+    next("/coaches");
+  } else {
+    next();
+  }
 });
 
 export default router;

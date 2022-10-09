@@ -7,14 +7,27 @@
   </router-view>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import TheHeader from "./components/layout/TheHeader.vue";
+import { useAuthStore } from "@/store/auth";
+import { onBeforeMount, watch } from "vue";
+import { useRouter } from "vue-router";
 
-export default {
-  components: {
-    TheHeader,
-  },
-};
+const authStore = useAuthStore();
+const router = useRouter();
+
+onBeforeMount(() => {
+  authStore.tryLogin();
+});
+
+watch(
+  () => authStore.didAutoLogout,
+  async (curVal, oldVal) => {
+    if (curVal && curVal !== oldVal) {
+      router.replace("/coaches");
+    }
+  }
+);
 </script>
 
 <style>

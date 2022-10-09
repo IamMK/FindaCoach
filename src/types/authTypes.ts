@@ -8,5 +8,5 @@ export type auth = {
 export type userData = {
   token: string | null;
   userId: string | null;
-  tokenExpiration: string | null;
+  didAutoLogout?: boolean;
 };

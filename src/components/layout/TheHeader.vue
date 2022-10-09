@@ -1,7 +1,15 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/store/auth";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const authStore = useAuthStore();
+
+const logout = () => {
+  authStore.logout();
+  router.replace("/coaches");
+};
 </script>
 
 <template>
@@ -18,7 +26,7 @@ const authStore = useAuthStore();
           >
         </li>
         <li v-if="authStore.isAuthenticated" class="navigation__link">
-          <base-button @click="authStore.logout">Logout</base-button>
+          <base-button @click="logout">Logout</base-button>
         </li>
         <li v-else class="navigation__link">
           <router-link class="navigation__url" to="auth">Login</router-link>
